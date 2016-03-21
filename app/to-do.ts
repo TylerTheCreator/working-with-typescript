@@ -1,18 +1,8 @@
-// class Task {
-//   done: boolean = false;
-//   constructor(public description: string, public priority: string){}
-//   markDone(){
-//     this.done = true;
-//   }
-// }
-//
-
 
 interface IPerson{
   name: string;
   email: string;
 }
-
 
 interface ITask{
   description: string;
@@ -30,10 +20,16 @@ class Task implements ITask{
   }
 }
 
-class HomeTask extends Task {}
+// class HomeTask extends Task {}
+
+class HomeTask extends Task {
+  constructor(public description: string, public priority: string, public assignedTo?: IPerson){
+    super(description, priority);
+  }
+}
 
 class WorkTask extends Task{
-  constructor(public dueDate: Date, public description: string, public priority: string){
+  constructor(public dueDate: Date, public description: string, public priority: string, public assignedTo?: IPerson){
     super(description, priority);
   }
 }
@@ -44,8 +40,23 @@ class HobbyTask extends Task{
   }
 }
 
+var tim: IPerson = {
+  name: "Tim D",
+  email: "Tim.D@example.com"
+}
+
+var tyler: IPerson = {
+  name: "Tyler F",
+  email: "Tyler.F@example.com"
+}
+
+var loki: IPerson = {
+  name: "God of mischief",
+  email: "loki@geocities.com"
+}
+
 var tasks = [];
-tasks.push(new HomeTask("Do the dishes.", "high"));
+tasks.push(new HomeTask("Do the dishes.", "high", tim));
 tasks.push(new HomeTask("buy chocolate", "low"));
 tasks.push(new HomeTask("wash the laundry", "high"));
 
@@ -58,8 +69,8 @@ tomorrow.setDate(today.getDate() + 1);
 var nextDay = new Date();
 nextDay.setDate(today.getDate() + 2);
 
-tasks.push(new WorkTask(today, "update blug", "HIIIGH"));
-tasks.push(new WorkTask(tomorrow, "go meet some people", "super high dog"));
-tasks.push(new WorkTask(nextDay, "wash the roof", "looow"));
+tasks.push(new WorkTask(today, "update blug", "HIIIGH", tyler));
+tasks.push(new WorkTask(tomorrow, "go meet some people", "super high dog", tim));
+tasks.push(new WorkTask(nextDay, "wash the roof", "looow", loki));
 
 console.log(tasks);
