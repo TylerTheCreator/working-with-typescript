@@ -8,6 +8,7 @@ module ToDoList {
     for(var task of taskCollection){
       if(task.assignedTo === assignee) {
         descriptions.push(task.description);
+
       }
     }
     return descriptions;

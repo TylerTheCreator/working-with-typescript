@@ -31,13 +31,13 @@ module ToDoList {
     }
   }
   export class WorkTask extends Task{
-    constructor(public type: string, public dueDate: Date, public description: string, public priority: string, public assignedTo: IPerson){
-      super(description, priority, assignedTo);
+    constructor(public type: string, public dueDate: Date, public description: string, public priority: string, public assignedTo?: IPerson){
+      super(description, priority);
     }
   }
   export class HobbyTask extends Task{
-    constructor(public type: string, public description: string){
-      super(description, "low");
+    constructor(public type: string, public description: string, public priority: string, public assignedTo?: IPerson){
+      super(description, priority);
     }
   }
 }
