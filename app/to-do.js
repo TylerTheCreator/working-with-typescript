@@ -21,9 +21,36 @@ var HomeTask = (function (_super) {
     }
     return HomeTask;
 }(Task));
+var WorkTask = (function (_super) {
+    __extends(WorkTask, _super);
+    function WorkTask(dueDate, description, priority) {
+        _super.call(this, description, priority);
+        this.dueDate = dueDate;
+        this.description = description;
+        this.priority = priority;
+    }
+    return WorkTask;
+}(Task));
+var HobbyTask = (function (_super) {
+    __extends(HobbyTask, _super);
+    function HobbyTask(description) {
+        _super.call(this, description, "low");
+        this.description = description;
+    }
+    return HobbyTask;
+}(Task));
 var tasks = [];
 tasks.push(new HomeTask("Do the dishes.", "high"));
 tasks.push(new HomeTask("buy chocolate", "low"));
 tasks.push(new HomeTask("wash the laundry", "high"));
-tasks[0].markDone();
+tasks.push(new HobbyTask("practice origami"));
+tasks.push(new HobbyTask("bake a pie"));
+var today = new Date();
+var tomorrow = new Date();
+tomorrow.setDate(today.getDate() + 1);
+var nextDay = new Date();
+nextDay.setDate(today.getDate() + 2);
+tasks.push(new WorkTask(today, "update blug", "HIIIGH"));
+tasks.push(new WorkTask(tomorrow, "go meet some people", "super high dog"));
+tasks.push(new WorkTask(nextDay, "wash the roof", "looow"));
 console.log(tasks);
