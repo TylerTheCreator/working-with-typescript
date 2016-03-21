@@ -1,12 +1,21 @@
+// class Task {
+//   done: boolean = false;
+//   constructor(public description: string, public priority: string){}
+//   markDone(){
+//     this.done = true;
+//   }
+// }
+//
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var Task = (function () {
-    function Task(description, priority) {
+    function Task(description, priority, assignedTo) {
         this.description = description;
         this.priority = priority;
+        this.assignedTo = assignedTo;
         this.done = false;
     }
     Task.prototype.markDone = function () {
