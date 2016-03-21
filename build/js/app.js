@@ -6,7 +6,8 @@ var __extends = (this && this.__extends) || function (d, b) {
 var ToDoList;
 (function (ToDoList) {
     var Task = (function () {
-        function Task(description, priority, assignedTo) {
+        function Task(type, description, priority, assignedTo) {
+            this.type = type;
             this.description = description;
             this.priority = priority;
             this.assignedTo = assignedTo;
@@ -15,13 +16,17 @@ var ToDoList;
         Task.prototype.markDone = function () {
             this.done = true;
         };
+        Task.prototype.CheckMatch = function () {
+            return this.type;
+        };
         return Task;
     }());
     ToDoList.Task = Task;
     var HomeTask = (function (_super) {
         __extends(HomeTask, _super);
-        function HomeTask(description, priority, assignedTo) {
+        function HomeTask(type, description, priority, assignedTo) {
             _super.call(this, description, priority);
+            this.type = type;
             this.description = description;
             this.priority = priority;
             this.assignedTo = assignedTo;
@@ -31,8 +36,9 @@ var ToDoList;
     ToDoList.HomeTask = HomeTask;
     var WorkTask = (function (_super) {
         __extends(WorkTask, _super);
-        function WorkTask(dueDate, description, priority, assignedTo) {
+        function WorkTask(type, dueDate, description, priority, assignedTo) {
             _super.call(this, description, priority, assignedTo);
+            this.type = type;
             this.dueDate = dueDate;
             this.description = description;
             this.priority = priority;
@@ -43,8 +49,9 @@ var ToDoList;
     ToDoList.WorkTask = WorkTask;
     var HobbyTask = (function (_super) {
         __extends(HobbyTask, _super);
-        function HobbyTask(description) {
+        function HobbyTask(type, description) {
             _super.call(this, description, "low");
+            this.type = type;
             this.description = description;
         }
         return HobbyTask;
@@ -92,21 +99,22 @@ var ToDoList;
 /// <reference path="to-do-listing-functions.ts" />
 var people = ToDoList.people;
 var tasks = [];
-tasks.push(new ToDoList.HomeTask("Do the dishes.", "High"));
-tasks.push(new ToDoList.HomeTask("Buy chocolate.", "Low", people.diane));
-tasks.push(new ToDoList.HomeTask("Wash the laundry.", "High"));
+tasks.push(new ToDoList.HomeTask("Home", "Do the dishes.", "High"));
+tasks.push(new ToDoList.HomeTask("Home", "Buy chocolate.", "Low", people.diane));
+tasks.push(new ToDoList.HomeTask("Home", "Wash the laundry.", "High"));
 tasks[0].markDone();
-tasks.push(new ToDoList.HobbyTask("Practice origami."));
-tasks.push(new ToDoList.HobbyTask("Bake a pie."));
+// console.log(tasks[0].type)
+tasks.push(new ToDoList.HobbyTask("Hobby", "Practice origami."));
+tasks.push(new ToDoList.HobbyTask("Hobby", "Bake a pie."));
 var today = new Date();
 var tomorrow = new Date();
 tomorrow.setDate(today.getDate() + 1);
 var nextDay = new Date();
 nextDay.setDate(today.getDate() + 2);
-tasks.push(new ToDoList.WorkTask(today, "Update blog.", "High", people.diane));
-tasks.push(new ToDoList.WorkTask(tomorrow, "Go to meeting.", "Medium", people.thor));
-tasks.push(new ToDoList.WorkTask(nextDay, "Go to sleep.", "high", people.thor));
-tasks.push(new ToDoList.WorkTask(nextDay, "Clean ceiling.", "Low", people.loki));
+// tasks.push(new ToDoList.WorkTask("Work", today, "Update blog.", "High", people.diane));
+tasks.push(new ToDoList.WorkTask("Work", tomorrow, "Go to meeting.", "Medium", people.thor));
+tasks.push(new ToDoList.WorkTask("Work", nextDay, "Go to sleep.", "high", people.thor));
+tasks.push(new ToDoList.WorkTask("Work", nextDay, "Clean ceiling.", "Low", people.loki));
 console.log(tasks);
 var thorTasks = ToDoList.describeTasksForPerson(people.thor, tasks);
 console.log("Here are Thor's tasks:");
@@ -114,3 +122,20 @@ for (var _i = 0, thorTasks_1 = thorTasks; _i < thorTasks_1.length; _i++) {
     var task = thorTasks_1[_i];
     console.log(task);
 }
+function printTask() {
+    console.log(typeof tasks[0].type);
+    for (var i = 0; i < tasks.length; i++) {
+        if (tasks[i].CheckMatch() === document.getElementById("input-type").value) {
+            var para = document.createElement("p");
+            var node = document.createTextNode(tasks[i].description);
+            para.appendChild(node);
+            var element = document.getElementById("div1");
+            element.appendChild(para);
+        }
+    }
+}
+// for (let i = 0; i < tasks.length; i++) {
+//   if (tasks[i].CheckMatch() == document.getElementById ("input-type").innerText) {
+//       document.write(array[i].description);
+//   }
+// }
