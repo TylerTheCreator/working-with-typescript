@@ -74,12 +74,28 @@ var ToDoList;
     };
 })(ToDoList || (ToDoList = {}));
 /// <reference path="to-do-classes-interfaces.ts" />
+var ToDoList;
+(function (ToDoList) {
+    ToDoList.describeTasksForPerson = function (assignee, taskCollection) {
+        var descriptions = [];
+        for (var _i = 0, taskCollection_1 = taskCollection; _i < taskCollection_1.length; _i++) {
+            var task = taskCollection_1[_i];
+            if (task.assignedTo === assignee) {
+                descriptions.push(task.description);
+            }
+        }
+        return descriptions;
+    };
+})(ToDoList || (ToDoList = {}));
+/// <reference path="to-do-classes-interfaces.ts" />
 /// <reference path="to-do-people.ts" />
+/// <reference path="to-do-listing-functions.ts" />
 var people = ToDoList.people;
 var tasks = [];
 tasks.push(new ToDoList.HomeTask("Do the dishes.", "High"));
 tasks.push(new ToDoList.HomeTask("Buy chocolate.", "Low", people.diane));
 tasks.push(new ToDoList.HomeTask("Wash the laundry.", "High"));
+tasks[0].markDone();
 tasks.push(new ToDoList.HobbyTask("Practice origami."));
 tasks.push(new ToDoList.HobbyTask("Bake a pie."));
 var today = new Date();
@@ -89,81 +105,12 @@ var nextDay = new Date();
 nextDay.setDate(today.getDate() + 2);
 tasks.push(new ToDoList.WorkTask(today, "Update blog.", "High", people.diane));
 tasks.push(new ToDoList.WorkTask(tomorrow, "Go to meeting.", "Medium", people.thor));
+tasks.push(new ToDoList.WorkTask(nextDay, "Go to sleep.", "high", people.thor));
 tasks.push(new ToDoList.WorkTask(nextDay, "Clean ceiling.", "Low", people.loki));
 console.log(tasks);
-//
-// interface IPerson{
-//   name: string;
-//   email: string;
-// }
-//
-// interface ITask{
-//   description: string;
-//   done: boolean;
-//   priority: string;
-//   markDone(): void;
-//   assignedTo?: IPerson;
-// }
-//
-// class Task implements ITask{
-//   done: boolean = false;
-//   constructor(public description: string, public priority: string, public assignedTo?: IPerson){}
-//   markDone(){
-//     this.done = true;
-//   }
-// }
-//
-// // class HomeTask extends Task {}
-//
-// class HomeTask extends Task {
-//   constructor(public description: string, public priority: string, public assignedTo?: IPerson){
-//     super(description, priority);
-//   }
-// }
-//
-// class WorkTask extends Task{
-//   constructor(public dueDate: Date, public description: string, public priority: string, public assignedTo?: IPerson){
-//     super(description, priority, assignedTo);
-//   }
-// }
-//
-// class HobbyTask extends Task{
-//   constructor(public description: string){
-//     super(description, "low");
-//   }
-// }
-//
-// var tim: IPerson = {
-//   name: "Tim D",
-//   email: "Tim.D@example.com"
-// }
-//
-// var tyler: IPerson = {
-//   name: "Tyler F",
-//   email: "Tyler.F@example.com"
-// }
-//
-// var loki: IPerson = {
-//   name: "God of mischief",
-//   email: "loki@geocities.com"
-// }
-//
-// var tasks = [];
-// tasks.push(new HomeTask("Do the dishes.", "high", tim));
-// tasks.push(new HomeTask("buy chocolate", "low"));
-// tasks.push(new HomeTask("wash the laundry", "high"));
-//
-// tasks.push(new HobbyTask("practice origami"));
-// tasks.push(new HobbyTask("bake a pie"));
-//
-// var today = new Date();
-// var tomorrow = new Date();
-// tomorrow.setDate(today.getDate() + 1);
-// var nextDay = new Date();
-// nextDay.setDate(today.getDate() + 2);
-//
-// tasks.push(new WorkTask(today, "update blug", "HIIIGH", tyler));
-// tasks.push(new WorkTask(tomorrow, "go meet some people", "super high dog", tim));
-// tasks.push(new WorkTask(nextDay, "wash the roof", "looow", loki));
-//
-// console.log(tasks);
+var thorTasks = ToDoList.describeTasksForPerson(people.thor, tasks);
+console.log("Here are Thor's tasks:");
+for (var _i = 0, thorTasks_1 = thorTasks; _i < thorTasks_1.length; _i++) {
+    var task = thorTasks_1[_i];
+    console.log(task);
+}

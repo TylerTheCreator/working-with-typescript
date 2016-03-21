@@ -14,7 +14,7 @@ module ToDoList {
     name: "god",
     email: "loki@epicodus.com",
     phone: "408-322-7722"
-  }
+ }
 
   export var people = {
     "diane": diane,
