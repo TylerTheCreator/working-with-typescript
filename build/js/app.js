@@ -19,6 +19,9 @@ var ToDoList;
         Task.prototype.CheckMatch = function () {
             return this.type;
         };
+        Task.prototype.CheckType = function () {
+            return this.priority;
+        };
         return Task;
     }());
     ToDoList.Task = Task;
@@ -113,7 +116,7 @@ var nextDay = new Date();
 nextDay.setDate(today.getDate() + 2);
 // tasks.push(new ToDoList.WorkTask("Work", today, "Update blog.", "High", people.diane));
 tasks.push(new ToDoList.WorkTask("Work", tomorrow, "Go to meeting.", "Medium", people.thor));
-tasks.push(new ToDoList.WorkTask("Work", nextDay, "Go to sleep.", "high", people.thor));
+tasks.push(new ToDoList.WorkTask("Work", nextDay, "Go to sleep.", "High", people.thor));
 tasks.push(new ToDoList.WorkTask("Work", nextDay, "Clean ceiling.", "Low", people.loki));
 console.log(tasks);
 var thorTasks = ToDoList.describeTasksForPerson(people.thor, tasks);
@@ -123,14 +126,17 @@ for (var _i = 0, thorTasks_1 = thorTasks; _i < thorTasks_1.length; _i++) {
     console.log(task);
 }
 function printTask() {
-    console.log(typeof tasks[0].type);
+    // console.log(typeof tasks[0].type);
     for (var i = 0; i < tasks.length; i++) {
-        if (tasks[i].CheckMatch() === document.getElementById("input-type").value) {
-            var para = document.createElement("p");
-            var node = document.createTextNode(tasks[i].description);
-            para.appendChild(node);
-            var element = document.getElementById("div1");
-            element.appendChild(para);
+        if (tasks[i].CheckMatch() == document.getElementById("input-type").value) {
+            console.log(tasks[i].CheckType());
+            if (tasks[i].CheckType() == document.getElementById("input-priority").value) {
+                var para = document.createElement("p");
+                var node = document.createTextNode(tasks[i].description + ": " + tasks[i].priority);
+                para.appendChild(node);
+                var element = document.getElementById("div1");
+                element.appendChild(para);
+            }
         }
     }
 }

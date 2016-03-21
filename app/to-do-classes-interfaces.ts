@@ -13,13 +13,16 @@ module ToDoList {
   }
   export class Task implements ITask{
     done: boolean = false;
-    
+
     constructor(public type: string, public description: string, public priority: string, public assignedTo?: IPerson){}
     markDone(){
       this.done = true;
     }
     CheckMatch(){
      return this.type;
+    }
+    CheckType(){
+      return this.priority;
     }
   }
   export class HomeTask extends Task {
